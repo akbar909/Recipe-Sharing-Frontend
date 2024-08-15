@@ -1,12 +1,11 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
@@ -16,7 +15,9 @@ function Login() {
       const decodedUser = JSON.parse(atob(data.token.split('.')[1]));
       login({ ...decodedUser, token: data.token });
       
-      navigate('/');
+      window.location.reload();
+
+      window.location.replace('/');
     } catch (error) {
       console.error('Login failed', error);
     }

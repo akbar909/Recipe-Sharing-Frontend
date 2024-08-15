@@ -1,76 +1,3 @@
-// import { useParams } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// const RecipeDetail = () => {
-//     const { id } = useParams(); 
-//     const [recipe, setRecipe] = useState(null);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-
-//     useEffect(() => {
-//         const fetchRecipe = async () => {
-//             try {
-//                 const token = localStorage.getItem('authToken');
-//                 const { data } = await axios.get(`http://localhost:5000/api/recipes/${id}`, {
-//                     headers: { Authorization: `Bearer ${token}` },
-//                 });
-//                 setRecipe(data);
-//             } catch (error) {
-//                 console.error('API Error:', error.response ? error.response.data.message : error.message);
-//                 setError(error.response ? error.response.data.message : 'Server error');
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchRecipe();
-//     }, [id]);
-
-//     if (loading) return <p className="text-center text-blue-500">Loading...</p>;
-//     if (error) return <p className="text-center text-red-500">{error}</p>;
-
-//     return (
-//         <div className="max-w-4xl mx-auto p-4">
-//             <h1 className="text-4xl font-bold mb-6">{recipe?.title || 'Recipe Detail'}</h1>
-//             {recipe?.image && (
-//                 <img 
-//                     src={recipe.image} 
-//                     alt={recipe.title} 
-//                     className="w-full h-80 object-cover rounded-lg mb-6"
-//                 />
-//             )}
-//             <p className="text-lg mb-6">{recipe?.description || 'No description available'}</p>
-//             <div className="mb-6">
-//                 <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
-//                 {recipe?.ingredients?.length ? (
-//                     <ul className="list-disc ml-6 space-y-1">
-//                         {recipe.ingredients.map((ingredient, index) => (
-//                             <li key={index} className="text-lg">{ingredient}</li>
-//                         ))}
-//                     </ul>
-//                 ) : (
-//                     <p className="text-lg">No ingredients listed.</p>
-//                 )}
-//             </div>
-//             <div>
-//                 <h2 className="text-2xl font-semibold mb-2">Steps</h2>
-//                 {recipe?.steps?.length ? (
-//                     <ol className="list-decimal ml-6 space-y-1">
-//                         {recipe.steps.map((step, index) => (
-//                             <li key={index} className="text-lg">{step}</li>
-//                         ))}
-//                     </ol>
-//                 ) : (
-//                     <p className="text-lg">No steps available.</p>
-//                 )}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default RecipeDetail;
-
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -115,18 +42,18 @@ const RecipeDetail = () => {
             const { data } = await axios.post(`http://localhost:5000/api/recipes/${id}/like`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-    
+
             setRecipe(data);
-            
-    
+
+
             // Toggle the isLiked state
             setIsLiked(prevIsLiked => !prevIsLiked);
-    
+
         } catch (error) {
             console.error('Failed to like the recipe:', error.response ? error.response.data.message : error.message);
         }
     };
-    
+
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
@@ -152,10 +79,11 @@ const RecipeDetail = () => {
                 <img
                     src={recipe.image}
                     alt={recipe.title}
-                    className="w-full h-80 object-cover rounded-lg mb-6"
+                    className="w-full h-80 object-contain rounded-lg mb-6"
                 />
             )}
             <p className="text-lg mb-6">{recipe?.description || 'No description available'}</p>
+
 
             {/* Display like button */}
             <button
@@ -171,30 +99,30 @@ const RecipeDetail = () => {
             <p className="text-lg mt-2">{recipe?.likes?.length || 0} likes</p>
 
             <div className='grid grid-flow-col'>
-            <div className="mb-6">
-                <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
-                {recipe?.ingredients?.length ? (
-                    <ul className="list-disc ml-6 space-y-1">
-                        {recipe.ingredients.map((ingredient, index) => (
-                            <li key={index} className="text-lg">{ingredient}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="text-lg">No ingredients listed.</p>
-                )}
-            </div>
-            <div className="mb-6">
-                <h2 className="text-2xl font-semibold mb-2">Steps</h2>
-                {recipe?.steps?.length ? (
-                    <ol className="list-decimal ml-6 space-y-1">
-                        {recipe.steps.map((step, index) => (
-                            <li key={index} className="text-lg">{step}</li>
-                        ))}
-                    </ol>
-                ) : (
-                    <p className="text-lg">No steps available.</p>
-                )}
-            </div>
+                <div className="mb-6">
+                    <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
+                    {recipe?.ingredients?.length ? (
+                        <ul className="list-disc ml-6 space-y-1">
+                            {recipe.ingredients.map((ingredient, index) => (
+                                <li key={index} className="text-lg">{ingredient}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-lg">No ingredients listed.</p>
+                    )}
+                </div>
+                <div className="mb-6">
+                    <h2 className="text-2xl font-semibold mb-2">Steps</h2>
+                    {recipe?.steps?.length ? (
+                        <ol className="list-decimal ml-6 space-y-1">
+                            {recipe.steps.map((step, index) => (
+                                <li key={index} className="text-lg">{step}</li>
+                            ))}
+                        </ol>
+                    ) : (
+                        <p className="text-lg">No steps available.</p>
+                    )}
+                </div>
             </div>
 
             {/* Display comments */}

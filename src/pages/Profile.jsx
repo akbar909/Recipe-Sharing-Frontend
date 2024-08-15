@@ -30,7 +30,14 @@ function Profile() {
     if (loading) return <p>Loading...</p>;
     if (error) {
         console.error('Error fetching recipes:', error);
-        return <p className="text-red-500">{error}</p>;
+        return (
+            <div>
+                <p className="text-red-500">{error}</p>
+                <button onClick={() => window.location.reload()} className="text-blue-500 underline">
+                    Retry
+                </button>
+            </div>
+        );
     }
     
     return (
