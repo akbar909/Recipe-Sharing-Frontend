@@ -13,7 +13,7 @@ function Login() {
     setError(''); // Reset error message
 
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/users/login`, { email, password });
+      const { data } = await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/users/login`, { email, password });
       const decodedUser = JSON.parse(atob(data.token.split('.')[1]));
       login({ ...decodedUser, token: data.token });
 

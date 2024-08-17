@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
         if (token) {
             const fetchUserProfile = async () => {
                 try {
-                    const { data } = await axios.get(`http://localhost:5000/api/users/profile`, {
+                    const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/users/profile`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
                     setUser(data);

@@ -17,7 +17,7 @@ const RecipeDetail = () => {
         const fetchRecipe = async () => {
             try {
                 const token = localStorage.getItem('authToken');
-                const { data } = await axios.get(`http://localhost:5000/api/recipes/${id}`, {
+                const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/recipes/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setRecipe(data);
@@ -40,7 +40,7 @@ const RecipeDetail = () => {
     const handleLike = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            const { data } = await axios.post(`http://localhost:5000/api/recipes/${id}/like`, {}, {
+            const { data } = await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/recipes/${id}/like`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -56,7 +56,7 @@ const RecipeDetail = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('authToken');
-            const { data } = await axios.post(`http://localhost:5000/api/recipes/${id}/comment`, { text: comment }, {
+            const { data } = await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/recipes/${id}/comment`, { text: comment }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setRecipe(data);
@@ -69,7 +69,7 @@ const RecipeDetail = () => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            await axios.delete(`http://localhost:5000/api/recipes/${id}`, {
+            await axios.delete(`https://recipe-sharing-backend-one.vercel.app/api/recipes/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

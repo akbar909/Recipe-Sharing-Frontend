@@ -37,7 +37,7 @@ function PostRecipeForm() {
 
         try {
             const token = localStorage.getItem('authToken');
-            await axios.post(`http://localhost:5000/api/recipes`, recipeData, {
+            await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/recipes`, recipeData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

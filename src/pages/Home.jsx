@@ -19,7 +19,7 @@ function Home() {
       }
       try {
         const token = localStorage.getItem('authToken');
-        const { data } = await axios.get(`http://localhost:5000/api/recipes`, {
+        const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/recipes`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecipes(data);

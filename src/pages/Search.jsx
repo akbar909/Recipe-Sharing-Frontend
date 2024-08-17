@@ -11,7 +11,7 @@ function Search() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('authToken');
-      const { data } = await axios.get(`${window.location.origin}/api/recipes/search?q=${query}`, {
+      const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/recipes/search?q=${query}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRecipes(data);

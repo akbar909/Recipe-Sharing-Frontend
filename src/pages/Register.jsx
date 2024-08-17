@@ -36,7 +36,7 @@ function Register() {
     };
 
     try {
-      await axios.post(`http://localhost:5000/api/users`, registerData);
+      await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/users`, registerData);
       navigate('/login');
     } catch (error) {
       // Handle error based on response
