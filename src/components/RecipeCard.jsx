@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 function RecipeCard({ recipe }) {
-  // Check if `recipe.likes` is defined, otherwise default to an empty array
   const likesCount = recipe.likes ? recipe.likes.length : 0;
 
   return (
@@ -10,7 +9,7 @@ function RecipeCard({ recipe }) {
       <h2 className="text-xl font-bold mb-2">{recipe.title}</h2>
       <p className="text-gray-700 mb-2">{recipe.description.substring(0, 100)}...</p>
       
-      {/* Display number of likes */}
+
       <p className="text-gray-600 mb-2">{likesCount} {likesCount === 1 ? 'Like' : 'Likes'}</p>
       
       <Link to={`/recipes/${recipe._id}`} className="text-blue-500 hover:underline mt-2 inline-block">Read more</Link>

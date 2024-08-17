@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaEllipsisV } from 'react-icons/fa';
+import AuthContext from '../context/AuthContext';
 
 const RecipeDetail = () => {
     const { id } = useParams();
@@ -10,6 +11,7 @@ const RecipeDetail = () => {
     const [error, setError] = useState(null);
     const [comment, setComment] = useState('');
     const [isLiked, setIsLiked] = useState(false);
+    const {user }= useContext(AuthContext)
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -20,7 +22,6 @@ const RecipeDetail = () => {
                 });
                 setRecipe(data);
 
-                // Determine if the current user has liked the recipe
                 const userEmail = localStorage.getItem('userEmail');
                 const liked = data.likes?.some(like => like.userEmail === userEmail) || false;
                 setIsLiked(liked);
@@ -44,16 +45,12 @@ const RecipeDetail = () => {
             });
 
             setRecipe(data);
-
-
-            // Toggle the isLiked state
             setIsLiked(prevIsLiked => !prevIsLiked);
 
         } catch (error) {
             console.error('Failed to like the recipe:', error.response ? error.response.data.message : error.message);
         }
     };
-
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
@@ -69,12 +66,41 @@ const RecipeDetail = () => {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('authToken');
+            await axios.delete(`http://localhost:5000/api/recipes/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Failed to delete the recipe:', error.response ? error.response.data.message : error.message);
+        }
+    };
+
     if (loading) return <p className="text-center text-blue-500">Loading...</p>;
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
+
+
     return (
         <div className="max-w-4xl mx-auto p-4">
-            <h1 className="text-4xl font-bold mb-6">{recipe?.title || 'Recipe Detail'}</h1>
+            <div className="flex  items-center justify-between mb-6">
+                <h1 className="text-4xl font-bold">{recipe?.title || 'Recipe Detail'}</h1>
+                {recipe?.user.email === user?.email && (
+                    <FaEllipsisV
+                        onClick={() => {
+                            if (window.confirm('Are you sure you want to delete this recipe?')) {
+                                handleDelete();
+                            }
+                        }}
+                        className="text-gray-700 text-2xl cursor-pointer"
+                        title="Delete Recipe"
+                    />
+                )}
+
+            </div>
             {recipe?.image && (
                 <img
                     src={recipe.image}
@@ -83,7 +109,6 @@ const RecipeDetail = () => {
                 />
             )}
             <p className="text-lg mb-6">{recipe?.description || 'No description available'}</p>
-
 
             {/* Display like button */}
             <button

@@ -11,11 +11,11 @@ function Search() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('authToken');
-      const { data } = await axios.get(`http://localhost:5000/api/recipes/search?q=${query}`, {
+      const { data } = await axios.get(`${window.location.origin}/api/recipes/search?q=${query}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRecipes(data);
-      setError(null);  // Clear any previous error
+      setError(null);
     } catch (error) {
       setError('Search failed');
       console.error(error);

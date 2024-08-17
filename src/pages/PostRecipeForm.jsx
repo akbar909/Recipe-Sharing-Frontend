@@ -11,18 +11,16 @@ function PostRecipeForm() {
     const [imageBase64, setImageBase64] = useState('');
     const navigate = useNavigate();
 
-    // Convert image file to Base64
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setImage(file);
 
-        // Create a FileReader to read the file
         const reader = new FileReader();
         reader.onloadend = () => {
             setImageBase64(reader.result);
         };
         if (file) {
-            reader.readAsDataURL(file); // Convert to Base64
+            reader.readAsDataURL(file);
         }
     };
 
@@ -34,18 +32,18 @@ function PostRecipeForm() {
             description,
             ingredients: ingredients.split('\n'),
             steps: steps.split('\n'),
-            image: imageBase64, // Send Base64 string
+            image: imageBase64,
         };
 
         try {
             const token = localStorage.getItem('authToken');
-            await axios.post('http://localhost:5000/api/recipes', recipeData, {
+            await axios.post(`http://localhost:5000/api/recipes`, recipeData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json', // JSON content type
+                    'Content-Type': 'application/json',
                 }
             });
-            navigate('/'); // Redirect after successful post
+            navigate('/');
         } catch (error) {
             console.error('Error posting recipe:', error);
         }

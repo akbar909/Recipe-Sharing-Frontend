@@ -14,12 +14,12 @@ function Home() {
       const token = localStorage.getItem('authToken');
 
       if (!token) {
-        navigate('/login'); // Redirect to login if token is not found
+        navigate('/login');
         return;
       }
       try {
         const token = localStorage.getItem('authToken');
-        const { data } = await axios.get('http://localhost:5000/api/recipes', {
+        const { data } = await axios.get(`http://localhost:5000/api/recipes`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecipes(data);
