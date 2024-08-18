@@ -27,7 +27,7 @@ function Profile() {
         fetchRecipes();
     }, [user]);
 
-    if (loading) return <p>Loading...</p>;
+    // if (loading) return <p>Loading...</p>;
     if (error) {
         console.error('Error fetching recipes:', error);
         return (
@@ -39,19 +39,27 @@ function Profile() {
             </div>
         );
     }
-    
+
     return (
         <div>
-            <h1 className="text-3xl font-bold mb-6">My Recipes</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {recipes.length === 0 ? (
-                    <p>No recipes found.</p>
-                ) : (
-                    recipes.map(recipe => (
-                        <RecipeCard key={recipe._id} recipe={recipe} />
-                    ))
-                )}
-            </div>
+            {loading ? (
+                <div className="flex justify-center items-center mt-48">
+                    <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>
+                </div>
+            ) : (
+                <div className='flex-grow container mx-auto px-4 py-6'>
+                    <h1 className="text-3xl font-bold mb-6">My Recipes</h1>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {recipes.length === 0 ? (
+                            <p>No recipes found.</p>
+                        ) : (
+                            recipes.map(recipe => (
+                                <RecipeCard key={recipe._id} recipe={recipe} />
+                            ))
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

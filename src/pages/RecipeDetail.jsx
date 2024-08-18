@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthContext';
 const RecipeDetail = () => {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [comment, setComment] = useState('');
     const [isLiked, setIsLiked] = useState(false);
@@ -15,13 +15,13 @@ const RecipeDetail = () => {
 
     useEffect(() => {
         const fetchRecipe = async () => {
+            setLoading(true);
             try {
                 const token = localStorage.getItem('authToken');
                 const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/recipes/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setRecipe(data);
-
                 const userEmail = localStorage.getItem('userEmail');
                 const liked = data.likes?.some(like => like.userEmail === userEmail) || false;
                 setIsLiked(liked);
@@ -79,13 +79,19 @@ const RecipeDetail = () => {
         }
     };
 
-    if (loading) return <p className="text-center text-blue-500">Loading...</p>;
+    // if (loading) return <p className="text-center text-blue-500">Loading...</p>;
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
 
 
     return (
-        <div className="max-w-4xl mx-auto p-4">
+        <div>
+
+        { loading ? (
+        <div className="flex justify-center items-center mt-48">
+          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>
+        </div>
+      ) :(<div className="max-w-4xl mx-auto p-4">
             <div className="flex  items-center justify-between mb-6">
                 <h1 className="text-4xl font-bold">{recipe?.title || 'Recipe Detail'}</h1>
                 {recipe?.user.email === user?.email && (
@@ -184,6 +190,7 @@ const RecipeDetail = () => {
                     Submit Comment
                 </button>
             </form>
+        </div>)}
         </div>
     );
 };

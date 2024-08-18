@@ -69,6 +69,7 @@ function PostRecipeForm() {
     };
 
     return (
+        <div className='flex-grow container mx-auto px-4 py-6'>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <h2 className="text-2xl font-bold mb-4">Post a Recipe</h2>
             {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
@@ -120,6 +121,7 @@ function PostRecipeForm() {
             </div>
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Post Recipe</button>
         </form>
+        </div>
     );
 }
 

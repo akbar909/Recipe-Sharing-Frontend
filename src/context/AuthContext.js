@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('authToken');
         if (token) {
             const fetchUserProfile = async () => {
+                setLoading(true);
                 try {
                     const { data } = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/users/profile`, {
                         headers: { Authorization: `Bearer ${token}` },
