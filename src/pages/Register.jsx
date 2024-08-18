@@ -26,8 +26,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error message
-
+    setError('');
     const registerData = {
       name,
       image: imageBase64,

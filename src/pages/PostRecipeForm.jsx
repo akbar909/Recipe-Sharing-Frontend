@@ -9,10 +9,23 @@ function PostRecipeForm() {
     const [steps, setSteps] = useState('');
     const [image, setImage] = useState(null);
     const [imageBase64, setImageBase64] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // State for error message
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        
+        // Check if file is too large (e.g., larger than 5 MB)
+        const maxSizeInMB = 5; 
+        if (file && file.size > maxSizeInMB * 1024 * 1024) {
+            setErrorMessage(`Image is too large. Please upload an image smaller than ${maxSizeInMB} MB.`);
+            setImage(null); // Clear the image
+            setImageBase64(''); // Clear the base64 data
+            return;
+        } else {
+            setErrorMessage(''); // Clear any previous error messages
+        }
+
         setImage(file);
 
         const reader = new FileReader();
@@ -26,6 +39,11 @@ function PostRecipeForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (imageBase64 === '') {
+            setErrorMessage('Please upload a valid image.');
+            return;
+        }
 
         const recipeData = {
             title,
@@ -46,15 +64,18 @@ function PostRecipeForm() {
             navigate('/');
         } catch (error) {
             console.error('Error posting recipe:', error);
+            alert("Please upload smaller recipe image it's too Large")
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <h2 className="text-2xl font-bold mb-4">Post a Recipe</h2>
+            {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
             <div className="mb-4">
                 <label className="block text-gray-700">Title</label>
                 <input
+                    required
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -64,6 +85,7 @@ function PostRecipeForm() {
             <div className="mb-4">
                 <label className="block text-gray-700">Description</label>
                 <textarea
+                    required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full p-2 border rounded"
@@ -72,6 +94,7 @@ function PostRecipeForm() {
             <div className="mb-4">
                 <label className="block text-gray-700">Ingredients (one per line)</label>
                 <textarea
+                    required
                     value={ingredients}
                     onChange={(e) => setIngredients(e.target.value)}
                     className="w-full p-2 border rounded"
@@ -80,6 +103,7 @@ function PostRecipeForm() {
             <div className="mb-4">
                 <label className="block text-gray-700">Steps (one per line)</label>
                 <textarea
+                    required
                     value={steps}
                     onChange={(e) => setSteps(e.target.value)}
                     className="w-full p-2 border rounded"
@@ -88,6 +112,7 @@ function PostRecipeForm() {
             <div className="mb-4">
                 <label className="block text-gray-700">Image</label>
                 <input
+                    required
                     type="file"
                     onChange={handleFileChange}
                     className="w-full p-2 border rounded"

@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import PostRecipeForm from './pages/PostRecipeForm';
 import AuthContext from './context/AuthContext';
+import NotFound from './pages/NotFound';
 
 function PrivateRoute({ element, ...rest }) {
   const { user } = useContext(AuthContext);
@@ -19,16 +20,19 @@ function App() {
     <Router>
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow container mx-auto px-4 py-6">
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-            <Route path="/post-recipe" element={<PrivateRoute element={<PostRecipeForm />} />} />
+            <Route path="/postrecipe" element={<PrivateRoute element={<PostRecipeForm />} />} />
+            <Route path="*" element={<NotFound />} />
+
           </Routes>
         </main>
+    
       </div>
     </Router>
   );
