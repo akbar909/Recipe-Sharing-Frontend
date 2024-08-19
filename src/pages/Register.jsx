@@ -53,7 +53,7 @@ function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen mt-4">
       {loading ? (
         <div className="flex justify-center items-center">
           <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>

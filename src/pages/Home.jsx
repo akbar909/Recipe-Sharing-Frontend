@@ -46,7 +46,7 @@ function Home() {
   );
 
   return (
-    <div>
+    <div className='mt-20'>
       { loading? (
         <div className="flex justify-center items-center mt-48">
         <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>
@@ -57,7 +57,7 @@ function Home() {
 
       {/* Check if there are no matching recipes */}
       {filteredRecipes.length === 0 ? (
-        <p className="text-gray-500">No recipes found matching your search.</p>
+        <p className="text-gray-500">No recipes found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredRecipes.map((recipe) => (

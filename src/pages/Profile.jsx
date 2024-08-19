@@ -41,7 +41,7 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className='mt-20'>
             {loading ? (
                 <div className="flex justify-center items-center mt-48">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>

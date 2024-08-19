@@ -20,7 +20,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 p-4 fixed w-full z-50 top-0">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white text-lg font-semibold">Recipe Sharing</Link>
 
@@ -36,7 +36,7 @@ function Navbar() {
           </div>
 
           {/* Search Bar and Links for Larger Screens */}
-          <div className="hidden sm:flex items-center space-x-4">
+          <div className="hidden relative sm:flex items-center space-x-4">
 
             {user ? (
               <>
@@ -48,11 +48,12 @@ function Navbar() {
                   className="px-4  py-2 border rounded-md"
                 />
                 <div
-                  className="flex items-center cursor-pointer"
+                  className="flexitems-center cursor-pointer"
                   onClick={handleMenuToggle}
                   aria-expanded={menuOpen}
                   aria-haspopup="true"
                 >
+                  <div className='flex items-center'>
                   <p className="text-white font-semibold mr-2">
                     {loading ? 'Loading...' : `Welcome, ${user.name || 'Loading...'}`}
                   </p>
@@ -67,6 +68,7 @@ function Navbar() {
                       className="w-10 h-10 rounded-full object-cover"
                     />
                   )}
+                  </div>
                 </div>
                 {menuOpen && (
                   <div className="absolute z-10 right-0 mt-36 bg-white text-gray-800 border border-gray-300 rounded-md shadow-lg w-48">

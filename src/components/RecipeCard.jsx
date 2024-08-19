@@ -5,10 +5,10 @@ function RecipeCard({ recipe }) {
 
   return (
     <div className="border rounded-lg p-4">
+        <p className="text-gray-500 mb-2">Created At: {new Date(recipe.createdAt).toLocaleDateString()}</p>
       <img src={recipe.image} alt={recipe.title} className="rounded-lg w-full h-48 object-cover mb-4" />
       <h2 className="text-xl font-bold mb-2">{recipe.title}</h2>
       <p className="text-gray-700 mb-2">{recipe.description.substring(0, 100)}...</p>
-      
 
       <p className="text-gray-600 mb-2">{likesCount} {likesCount === 1 ? 'Like' : 'Likes'}</p>
       

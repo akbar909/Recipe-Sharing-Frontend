@@ -15,8 +15,7 @@ function PostRecipeForm() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         
-        // Check if file is too large (e.g., larger than 5 MB)
-        const maxSizeInMB = 5; 
+        const maxSizeInMB = 5;
         if (file && file.size > maxSizeInMB * 1024 * 1024) {
             setErrorMessage(`Image is too large. Please upload an image smaller than ${maxSizeInMB} MB.`);
             setImage(null); // Clear the image
@@ -69,7 +68,7 @@ function PostRecipeForm() {
     };
 
     return (
-        <div className='flex-grow container mx-auto px-4 py-6'>
+        <div className='flex-grow container mx-auto px-4  mt-24'>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <h2 className="text-2xl font-bold mb-4">Post a Recipe</h2>
             {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
