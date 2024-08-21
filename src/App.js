@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import PostRecipeForm from './pages/PostRecipeForm';
 import AuthContext from './context/AuthContext';
 import NotFound from './pages/NotFound';
+import UserRecipes from './pages/UserRecipes';
 
 function PrivateRoute({ element, ...rest }) {
   const { user } = useContext(AuthContext);
@@ -29,6 +30,7 @@ function App() {
             <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
             <Route path="/postrecipe" element={<PrivateRoute element={<PostRecipeForm />} />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/user/:userName/recipes" element={<UserRecipes />} />
 
           </Routes>
         </main>

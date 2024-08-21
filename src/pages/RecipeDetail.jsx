@@ -124,12 +124,16 @@ const RecipeDetail = () => {
                         )}
                     </div>
 
-                    <div className="mb-6">
+                    <div className="mb-6 gap-3 flex items-center">
                         <p className="text-lg font-bold flex gap-3 items-center">Posted by: <span> <img
                             src={recipe?.user?.image}
                             alt={recipe?.user?.title}
                             className="w-12 h-12 rounded-full object-cover"
-                        /></span> {recipe?.user?.name}</p>
+                        /></span> </p>
+                        <div className='flex flex-col '>
+                            <p className='font-bold'> {recipe?.user?.name}</p>
+                            <p className="text-gray-500 text-xs mb-2">{new Date(recipe?.createdAt).toLocaleDateString()}</p>
+                        </div>
                     </div>
 
                     {recipe?.image && (
