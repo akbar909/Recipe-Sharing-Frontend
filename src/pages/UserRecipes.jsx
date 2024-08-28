@@ -1,10 +1,15 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import axios from 'axios';
 import RecipeCard from '../components/RecipeCard';
+import AuthContext from '../context/AuthContext';
 
 function UserRecipes() {
     const { userName } = useParams();
+    
+    const { user } = useContext(AuthContext);
+    const loggedInUserName = user?.name || localStorage.getItem('userName');
+
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -30,20 +35,24 @@ function UserRecipes() {
     }, [userName]);
 
     return (
-        <div className='mt-20'>
+        <div className='mt-16'>
             {loading ? (
                 <div className="flex justify-center items-center mt-48">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-500 border-t-transparent"></div>
                 </div>
+            ) : error ? (
+                <div className="text-red-500 text-center mt-4">{error}</div>
             ) : (
                 <div className='flex-grow container mx-auto px-4 py-6'>
-                    <h1 className="text-3xl font-bold mb-6">Recipes by {userName}</h1>
+                    <h1 className="text-3xl font-bold mb-6">
+                        {loggedInUserName === userName ? 'Recipes by You' : `Recipes by ${userName}`}
+                    </h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         {recipes.length === 0 ? (
                             <p>No recipes found.</p>
                         ) : (
                             recipes.map(recipe => (
-                                <RecipeCard key={recipe._id} recipe={recipe} />
+                                <RecipeCard key={recipe._id} recipe={recipe} showLink={false} />
                             ))
                         )}
                     </div>

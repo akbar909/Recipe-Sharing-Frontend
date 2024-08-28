@@ -128,7 +128,7 @@ const RecipeDetail = () => {
                         <p className="text-lg font-bold flex gap-3 items-center">Posted by: <span> <img
                             src={recipe?.user?.image}
                             alt={recipe?.user?.title}
-                            className="w-12 h-12 rounded-full object-cover"
+                            className="w-10 h-10 rounded-full object-cover"
                         /></span> </p>
                         <div className='flex flex-col '>
                             <p className='font-bold'> {recipe?.user?.name}</p>
@@ -154,32 +154,34 @@ const RecipeDetail = () => {
                     </button>
                     <p className="text-lg mt-2">{recipe?.likes?.length || 0} likes</p>
 
-                    <div className="grid grid-flow-col">
+                    <div className="grid md:grid-cols-2 gap-8 mt-8">
                         <div className="mb-6">
-                            <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
+                            <h2 className="text-3xl font-semibold text-blue-800 mb-4 border-b-2 border-blue-800 pb-2">Ingredients</h2>
                             {recipe?.ingredients?.length ? (
-                                <ul className="list-disc ml-6 space-y-1">
+                                <ul className="list-disc ml-6 space-y-2">
                                     {recipe.ingredients.map((ingredient, index) => (
-                                        <li key={index} className="text-lg">{ingredient}</li>
+                                        <li key={index} className="text-lg text-gray-700">{ingredient}</li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-lg">No ingredients listed.</p>
+                                <p className="text-lg text-gray-500">No ingredients listed.</p>
                             )}
                         </div>
+
                         <div className="mb-6">
-                            <h2 className="text-2xl font-semibold mb-2">Steps</h2>
+                            <h2 className="text-3xl font-semibold text-blue-800 mb-4 border-b-2 border-blue-800 pb-2">Steps</h2>
                             {recipe?.steps?.length ? (
-                                <ol className="list-decimal ml-6 space-y-1">
+                                <ol className="list-decimal ml-6 space-y-2">
                                     {recipe.steps.map((step, index) => (
-                                        <li key={index} className="text-lg">{step}</li>
+                                        <li key={index} className="text-lg text-gray-700">{step}</li>
                                     ))}
                                 </ol>
                             ) : (
-                                <p className="text-lg">No steps available.</p>
+                                <p className="text-lg text-gray-500">No steps available.</p>
                             )}
                         </div>
                     </div>
+
 
                     <div>
                         <h2 className="text-2xl font-semibold mb-4">Comments</h2>

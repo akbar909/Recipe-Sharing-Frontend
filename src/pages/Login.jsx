@@ -2,6 +2,8 @@ import { useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import TopLoadingBar from 'react-top-loading-bar';
+import { Toaster, toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -21,11 +23,15 @@ function Login() {
       login({ ...decodedUser, token: data.token });
 
       localStorage.setItem('userEmail', decodedUser.email);
+      toast.success('Login successful');
+
       window.location.replace('/'); // Redirect to home page
     } catch (error) {
+      console.error("Login error:", error.response || error.message); // Log the error details
       loadingBarRef.current?.complete(); // Stop the loading bar
       if (error.response && error.response.data) {
         setError(error.response.data.message || 'Login failed');
+        toast.error('Login failed');
       } else {
         setError('Login failed');
       }
@@ -35,41 +41,58 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-28">
-      <TopLoadingBar
-        color="#4f23ff"
-        height={3}
-        ref={loadingBarRef}
-      />
-      <div className="w-72 mx-auto p-6 border border-gray-200 rounded-lg shadow-lg mt-10">
-        <h1 className="text-3xl font-bold mb-6">Login</h1>
-        {error && <div className="mb-4 p-4 bg-red-100 text-red-700 border border-red-300 rounded">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <Toaster position="top-right" />
+      <TopLoadingBar color="#4f23ff" height={3} ref={loadingBarRef} />
+
+      <div className="w-full max-w-md p-8 space-y-8 bg-white border border-gray-200 rounded-lg shadow-lg">
+        <h1 className="text-4xl font-extrabold text-center text-gray-900">Welcome Back</h1>
+        <p className="text-center text-gray-600">Login to access your account</p>
+
+        {error && (
+          <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 border border-red-300 rounded">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Email Address</label>
             <input
               type="email"
+              name='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              autoComplete="email"
+              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Login
+
+          <button
+            type="submit"
+            className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Sign In
           </button>
         </form>
+
+        <div className="text-sm text-center text-gray-600">
+          Don't have an account?{' '}
+          <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            Resgister
+          </Link>
+        </div>
       </div>
     </div>
   );
