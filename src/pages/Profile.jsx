@@ -49,7 +49,7 @@ function Profile() {
             ) : (
                 <div className='flex-grow container mx-auto px-4 py-6'>
                     <h1 className="text-3xl font-bold mb-6">My Recipes</h1>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
                         {recipes.length === 0 ? (
                             <p>No recipes found.</p>
                         ) : (

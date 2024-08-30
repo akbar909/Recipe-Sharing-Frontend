@@ -8,7 +8,7 @@ const Admin = () => {
         const fetchUsers = async () => {
             const token = localStorage.getItem('authToken');
             try {
-                const response = await fetch('http://localhost:5000/api/users/all', {
+                const response = await fetch('https://recipe-sharing-backend-one.vercel.app/api/users/all', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const data = await response.json();

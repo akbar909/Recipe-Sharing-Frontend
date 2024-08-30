@@ -70,7 +70,7 @@ function Register() {
     if (image) formData.append('image', image);
 
     try {
-      await axios.post(`http://localhost:5000/api/users`, formData, {
+      await axios.post(`https://recipe-sharing-backend-one.vercel.app/api/users`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

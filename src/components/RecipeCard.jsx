@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
-import { useContext } from 'react';
+// import AuthContext from '../context/AuthContext';
+// import { useContext } from 'react';
 import moment from 'moment';
-import { formatDistanceToNow } from 'date-fns';
+// import { formatDistanceToNow } from 'date-fns';
 
 function RecipeCard({ recipe, showLink = true }) {
   const likesCount = recipe.likes ? recipe.likes.length : 0;
-  const user = useContext(AuthContext);
+  // const user = useContext(AuthContext);
 
   return (
     <div className='border rounded-lg overflow-hidden flex flex-col'>
       {showLink ? (
-        <Link to={`/user/${(recipe?.user?.userName)}/recipes`} className="flex items-center p-4">
+        <Link to={`/user/${(recipe.user.userName)}/recipes`} className="flex items-center p-4">
           <img
             src={recipe?.user?.image}
             alt={recipe?.user?.title}

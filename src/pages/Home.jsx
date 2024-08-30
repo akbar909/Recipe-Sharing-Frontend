@@ -44,7 +44,7 @@ function Home() {
     .filter((recipe) =>
       recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    .reverse();
+    .reverse(); // Reverse the order of recipes
 
   // Load more recipes
   const loadMoreRecipes = () => {
