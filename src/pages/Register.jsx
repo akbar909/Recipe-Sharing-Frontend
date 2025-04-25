@@ -59,11 +59,11 @@ function Register() {
       return;
     }
 
-    if (!isUserNameAvailable) {
-      setError('Username is already taken');
-      setLoading(false);
-      return;
-    }
+    // if (!isUserNameAvailable) {
+    //   setError('Username is already taken');
+    //   setLoading(false);
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append('name', name);
