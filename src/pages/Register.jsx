@@ -15,33 +15,32 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-useEffect(() => {
+// useEffect(() => {
   const token = localStorage.getItem('authToken');
   if (token) {
     navigate('/');
     return;
   }
+//   const delayDebounce = setTimeout(() => {
+//     const checkUserNameAvailability = async () => {
+//       if (userName) {
+//         try {
+//           const response = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/users/check-userName/${userName}`);
+//           setIsUserNameAvailable(response.data.message === 'Username available');
+//         } catch (error) {
+//           console.error('Error checking username:', error.response?.data || error.message);
+//           setIsUserNameAvailable(null);
+//         }
+//       } else {
+//         setIsUserNameAvailable(null);
+//       }
+//     };
 
-  const delayDebounce = setTimeout(() => {
-    const checkUserNameAvailability = async () => {
-      if (userName) {
-        try {
-          const response = await axios.get(`https://recipe-sharing-backend-one.vercel.app/api/users/check-userName/${userName}`);
-          setIsUserNameAvailable(response.data.message === 'Username available');
-        } catch (error) {
-          console.error('Error checking username:', error.response?.data || error.message);
-          setIsUserNameAvailable(null);
-        }
-      } else {
-        setIsUserNameAvailable(null);
-      }
-    };
+//     checkUserNameAvailability();
+//   }, 500); // Delay of 500ms
 
-    checkUserNameAvailability();
-  }, 500); // Delay of 500ms
-
-  return () => clearTimeout(delayDebounce);
-}, [userName, navigate]);
+//   return () => clearTimeout(delayDebounce);
+// }, [userName, navigate]);
 
 
   const handleFileChange = (e) => {
@@ -125,13 +124,13 @@ useEffect(() => {
                 className="w-full p-2 border border-gray-300 rounded"
                 required
               />
-              {userName && (
+{/*               {userName && (
                 <div className="text-sm mt-1">
                   {isUserNameAvailable === null && <span className="text-gray-500">Checking username availability...</span>}
                   {isUserNameAvailable === true && <span className="text-green-500">Username is available!</span>}
                   {isUserNameAvailable === false && <span className="text-red-500">Username is already taken.</span>}
                 </div>
-              )}
+              )} */}
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Profile Image</label>
