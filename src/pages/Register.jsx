@@ -15,14 +15,14 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
+  const token = localStorage.getItem('authToken');
+  if (token) {
+    navigate('/');
+    return;
+  }
 
-    const token = localStorage.getItem('authToken');
-
-    if (token) {
-      navigate('/');
-      return;
-    }
+  const delayDebounce = setTimeout(() => {
     const checkUserNameAvailability = async () => {
       if (userName) {
         try {
@@ -38,7 +38,11 @@ function Register() {
     };
 
     checkUserNameAvailability();
-  }, [userName]);
+  }, 500); // Delay of 500ms
+
+  return () => clearTimeout(delayDebounce);
+}, [userName, navigate]);
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
